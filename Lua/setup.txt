@@ -1,0 +1,4 @@
+luarocks install luasocket
+luarocks install luasec
+luarocks install dkjson
+luarocks install dotenv

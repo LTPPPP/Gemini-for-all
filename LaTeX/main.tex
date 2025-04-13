@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+
+\title{Gemini Chatbot Project}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Overview}
+This project demonstrates how to build a simple chatbot using the Gemini API. The chatbot is capable of generating responses using Google’s Gemini language models. The project is written in Python and configured using environment variables for security.
+
+\section*{Environment Setup}
+
+\begin{enumerate}[label=\arabic*.]
+  \item Clone the repository or create a new directory for your project.
+  \item Create a virtual environment and activate it:
+  \begin{minted}{bash}
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+  \end{minted}
+
+  \item Install dependencies:
+  \begin{minted}{bash}
+pip install python-dotenv openai
+  \end{minted}
+  
+  \item Create a `.env` file in the root directory:
+\end{enumerate}
+
+\begin{tcolorbox}[colback=black!5!white, colframe=black!75!black, title=.env file]
+\begin{minted}{text}
+GEMINI_API_KEY=your_gemini_api_key_here
+MODEL=gemini-2.0-flash
+\end{minted}
+\end{tcolorbox}
+
+\section*{Example Python Script}
+Below is a minimal Python script that loads the API key and model from the `.env` file and sends a prompt to the Gemini model.
+
+\begin{minted}[fontsize=\small]{python}
+import os
+from dotenv import load_dotenv
+import requests
+
+load_dotenv()
+
+API_KEY = os.getenv("GEMINI_API_KEY")
+MODEL = os.getenv("MODEL")
+
+def chat_with_gemini(prompt):
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}"
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "contents": [
+            {
+                "parts": [{"text": prompt}]
+            }
+        ]
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    return response.json()
+
+if __name__ == "__main__":
+    prompt = "Tell me a fun fact about space."
+    response = chat_with_gemini(prompt)
+    print(response)
+\end{minted}
+
+\section*{Usage}
+To run the chatbot, execute the script:
+\begin{minted}{bash}
+python chatbot.py
+\end{minted}
+
+\section*{Security Note}
+Do not commit the `.env` file to version control. Add it to `.gitignore` to protect your API key.
+
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=Add to .gitignore]
+\begin{minted}{text}
+.env
+\end{minted}
+\end{tcolorbox}
+
+\section*{Future Improvements}
+\begin{itemize}
+  \item Add a web UI using Flask or Streamlit.
+  \item Support for conversation history and context management.
+  \item Better error handling and logging.
+\end{itemize}
+
+\end{document}

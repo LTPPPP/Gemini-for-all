@@ -44,7 +44,7 @@ This repo currently includes examples or integrations for:
 
    ```bash
    git clone https://github.com/LTPPPP/Gemini-for-all.git
-   cd GEMINIFORALLLANGUAGE
+   cd GEMINIFORALL
    ```
 
 ## 🤝 Contributors

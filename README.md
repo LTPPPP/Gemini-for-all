@@ -58,4 +58,4 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 
 ---
 
-Made with ❤️ by the Gemini For All team.
+Made with ❤️ by LTPPPP.

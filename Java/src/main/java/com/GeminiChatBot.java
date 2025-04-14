@@ -1,11 +1,18 @@
 package com;
 
-import com.google.gson.*;
-import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.*;
-
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import io.github.cdimascio.dotenv.Dotenv;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class GeminiChatBot {
 
@@ -46,15 +53,11 @@ public class GeminiChatBot {
         JsonObject textPart = new JsonObject();
         textPart.addProperty("text", userInput);
         parts.add(textPart);
-        content.add("contents", new JsonArray() {
-            {
-                add(new JsonObject() {
-                    {
-                        add("parts", parts);
-                    }
-                });
-            }
-        });
+        JsonArray contentsArray = new JsonArray();
+        JsonObject contentObject = new JsonObject();
+        contentObject.add("parts", parts);
+        contentsArray.add(contentObject);
+        content.add("contents", contentsArray);
 
         RequestBody body = RequestBody.create(
                 gson.toJson(content),

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 fun main() {
     val dotenv = dotenv()
     val apiKey = dotenv["GEMINI_API_KEY"]
-    val model = dotenv["MODEL"] ?: "gemini-pro"
+    val model = dotenv["MODEL"] ?: "gemini-2.0-flash"
 
     val userInput = "Hello, Gemini! Can you help me write Kotlin code?"
 
